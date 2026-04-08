@@ -25,7 +25,7 @@ const STATS = [
 
 export default function StatsSection() {
   return (
-    <section className="bg-cream py-16 w-full">
+    <section className="bg-cream pt-24 w-full">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-[120px]">
         <div className="flex items-stretch justify-center gap-8 flex-nowrap">
           {STATS.map((stat) => (
