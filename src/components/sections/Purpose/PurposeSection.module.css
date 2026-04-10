@@ -1,0 +1,335 @@
+/* PurposeSection.module.css - النسخة النهائية مع تغطية جميع النطاقات */
+
+.section {
+  width: 100%;
+  background-color: #f5f2e8;
+  padding-top: 96px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media (min-width: 768px) {
+  .section {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1025px) {
+  .section {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.container {
+  max-width: 1192px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #1e2f2e;
+  margin: 0;
+}
+.subtitle {
+  font-size: 18px;
+  color: #5a6e6b;
+  max-width: 800px;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  width: 100%;
+}
+
+.card {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  background-color: #034845;
+  border: 3px solid #034845;
+  border-radius: 8px 8px 32px 32px;
+  overflow: hidden;
+  aspect-ratio: 572 / 368;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card:hover .cardInner {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 70px rgba(26, 74, 58, 0.25);
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.innerBorder {
+  position: absolute;
+  inset: 24px;
+  border: 1px solid #a29c7b;
+  border-radius: 6px 6px 24px 24px;
+  z-index: 2;
+  pointer-events: none;
+}
+.content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 32px 32px;
+}
+
+.icon {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 132px;
+  height: 128px;
+  object-fit: contain;
+}
+.card.show .icon {
+  opacity: 1;
+  transform: translateY(0);
+}
+.card:hover .icon {
+  transform: scale(1.05);
+}
+
+.cardTitle {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+}
+.description {
+  font-size: 16px;
+  color: #e2e8f0;
+  max-width: 400px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* لابتوب عريض (1301px - 1440px) - التصميم الأصلي */
+@media (min-width: 1301px) and (max-width: 1440px) {
+  .grid {
+    gap: 32px;
+  }
+  .innerBorder {
+    inset: 24px;
+  }
+  .content {
+    padding: 32px 32px;
+  }
+}
+
+/* لابتوب ضيق (1025px - 1300px) - تصغير المحتوى لمنع التلامس والخروج */
+@media (min-width: 1025px) and (max-width: 1300px) {
+  .grid {
+    gap: 24px;
+  }
+  .innerBorder {
+    inset: 16px;
+  }
+  .content {
+    padding: 20px 20px;
+    gap: 8px;
+  }
+  .icon {
+    width: 100px;
+    height: 96px;
+  }
+  .cardTitle {
+    font-size: 26px;
+  }
+  .description {
+    font-size: 14px;
+    max-width: 95%;
+    line-height: 1.3;
+  }
+}
+
+/* Large screens (1441px+) */
+@media (min-width: 1441px) {
+  .grid {
+    gap: 40px;
+  }
+}
+
+/* Tablet عام (769px - 1024px) - مع تغطية داخلية خاصة للنطاق الضيق */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .grid {
+    gap: 24px;
+  }
+  .cardInner {
+    aspect-ratio: 500 / 340;
+  }
+  /* النطاق من 769px إلى 920px يحتاج تصغير إضافي */
+  @media (max-width: 920px) {
+    .innerBorder {
+      inset: 12px;
+    }
+    .content {
+      padding: 14px 14px;
+      gap: 6px;
+    }
+    .icon {
+      width: 75px;
+      height: 70px;
+    }
+    .cardTitle {
+      font-size: 22px;
+    }
+    .description {
+      font-size: 12px;
+      max-width: 100%;
+      line-height: 1.3;
+    }
+  }
+  /* النطاق من 921px إلى 1024px */
+  @media (min-width: 921px) {
+    .innerBorder {
+      inset: 16px;
+    }
+    .content {
+      padding: 20px 20px;
+      gap: 10px;
+    }
+    .icon {
+      width: 100px;
+      height: 96px;
+    }
+    .cardTitle {
+      font-size: 26px;
+    }
+    .description {
+      font-size: 14px;
+      max-width: 90%;
+    }
+  }
+}
+
+/* Small (481px - 768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .cardInner {
+    aspect-ratio: 500 / 340;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .innerBorder {
+    inset: 16px;
+  }
+  .content {
+    padding: 20px 20px;
+    gap: 8px;
+  }
+  .cardTitle {
+    font-size: 28px;
+  }
+  .description {
+    font-size: 14px;
+    max-width: 95%;
+  }
+  .icon {
+    width: 100px;
+    height: 96px;
+  }
+}
+
+/* Mobile (0 - 480px) */
+@media (max-width: 480px) {
+  .section {
+    padding-top: 48px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .container {
+    gap: 32px;
+  }
+  .title {
+    font-size: 36px;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .cardInner {
+    aspect-ratio: 340 / 280;
+    max-width: 100%;
+  }
+  .innerBorder {
+    inset: 12px;
+  }
+  .content {
+    padding: 16px 16px;
+    gap: 6px;
+  }
+  .cardTitle {
+    font-size: 24px;
+  }
+  .description {
+    font-size: 13px;
+    max-width: 100%;
+    padding: 0 4px;
+  }
+  .icon {
+    width: 80px;
+    height: 76px;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .icon,
+  .cardInner {
+    transition: none;
+  }
+  .card:hover .cardInner {
+    transform: none;
+  }
+  .card:hover .icon {
+    transform: none;
+  }
+}

@@ -1,0 +1,234 @@
+/* StorySection.module.css */
+
+.section {
+  width: 100%;
+  background-color: #f5f2e8; /* cream */
+  padding: 96px 24px;
+}
+@media (min-width: 768px) {
+  .section {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1025px) {
+  .section {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.container {
+  max-width: 1192px;
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #a29c7b; /* gold */
+  border-radius: 8px 8px 32px 32px;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.cardShow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.innerBorder {
+  position: absolute;
+  inset: 24px;
+  border: 1px solid #a29c7b;
+  border-radius: 6px 6px 28px 28px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+.borderShow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  padding: 64px 100px;
+}
+@media (max-width: 1024px) {
+  .content {
+    padding: 56px 60px;
+    gap: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .content {
+    padding: 48px 32px;
+    gap: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .content {
+    padding: 40px 20px;
+    gap: 12px;
+  }
+}
+
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #1e2f2e; /* neutral-500 */
+  margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.1s;
+}
+@media (max-width: 1024px) {
+  .title {
+    font-size: 38px;
+  }
+}
+@media (max-width: 768px) {
+  .title {
+    font-size: 32px;
+  }
+}
+@media (max-width: 480px) {
+  .title {
+    font-size: 28px;
+  }
+}
+
+.subtitle {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #465150; /* neutral-400 */
+  margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.2s;
+}
+@media (max-width: 1024px) {
+  .subtitle {
+    font-size: 28px;
+  }
+}
+@media (max-width: 768px) {
+  .subtitle {
+    font-size: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .subtitle {
+    font-size: 20px;
+  }
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #676767; /* neutral-300 */
+  max-width: 800px;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0.3s;
+}
+@media (max-width: 1024px) {
+  .description {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+@media (max-width: 768px) {
+  .description {
+    font-size: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .description {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+
+.textShow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Laptop (1025px - 1440px) — locked, no visual changes (already default) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .container {
+    max-width: 1192px;
+  }
+  .innerBorder {
+    inset: 24px;
+  }
+  .content {
+    padding: 64px 100px;
+  }
+}
+
+/* Large screens (1441px+) — optional, keep layout */
+@media (min-width: 1441px) {
+  .container {
+    max-width: 1440px;
+  }
+  .content {
+    padding: 80px 120px;
+  }
+}
+
+/* Tablet (769px - 1024px) — adjust inner border inset and padding */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .innerBorder {
+    inset: 20px;
+  }
+}
+
+/* Small (481px - 768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+  .innerBorder {
+    inset: 16px;
+  }
+}
+
+/* Mobile (0 - 480px) */
+@media (max-width: 480px) {
+  .innerBorder {
+    inset: 12px;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .innerBorder,
+  .title,
+  .subtitle,
+  .description {
+    transition: none;
+  }
+}

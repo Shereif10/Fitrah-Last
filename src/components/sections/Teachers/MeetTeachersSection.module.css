@@ -1,0 +1,273 @@
+/* MeetTeachersSection.module.css */
+
+.section {
+  width: 100%;
+  background-color: #f5f2e8; /* cream */
+  padding: 96px 24px;
+}
+@media (min-width: 768px) {
+  .section {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1025px) {
+  .section {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.container {
+  max-width: 1192px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #1e2f2e; /* neutral-500 */
+  margin: 0;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.subtitle {
+  font-size: 18px;
+  color: #5a6e6b; /* neutral-400 */
+  margin: 0;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.title.show,
+.subtitle.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Grid: 4 columns on laptop, responsive */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease;
+  will-change: transform, opacity;
+}
+.card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 270 / 260;
+  overflow: hidden;
+}
+.image {
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card.show .image {
+  transform: scale(1);
+}
+.card:hover .image {
+  transform: scale(1.1);
+}
+
+.info {
+  position: relative;
+  background-color: #034845; /* primary */
+  padding: 24px 16px 20px;
+  text-align: center;
+  border-radius: 0 0 32px 32px;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  pointer-events: none;
+}
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+}
+.role {
+  font-size: 14px;
+  color: #e2e8f0;
+}
+.description {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #e2e8f0;
+  max-width: 220px;
+  margin: 0;
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Laptop (1025px - 1440px) — locked, exactly as original design */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .grid {
+    gap: 24px;
+  }
+  .name {
+    font-size: 18px;
+  }
+  .role {
+    font-size: 14px;
+  }
+  .description {
+    font-size: 12px;
+  }
+}
+
+/* Large screens (1441px+) — optional larger gap */
+@media (min-width: 1441px) {
+  .grid {
+    gap: 32px;
+  }
+  .container {
+    max-width: 1440px;
+  }
+}
+
+/* Tablet (769px - 1024px) — 2 columns */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .description {
+    max-width: 90%;
+  }
+}
+
+/* Small (481px - 768px) — 2 columns, smaller padding */
+@media (max-width: 768px) and (min-width: 481px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .section {
+    padding: 64px 24px;
+  }
+  .title {
+    font-size: 40px;
+  }
+  .subtitle {
+    font-size: 16px;
+  }
+  .name {
+    font-size: 16px;
+  }
+  .role {
+    font-size: 13px;
+  }
+  .description {
+    font-size: 11px;
+  }
+  .info {
+    padding: 16px 12px;
+  }
+}
+
+/* Mobile (0 - 480px) — 1 column */
+@media (max-width: 480px) {
+  .section {
+    padding: 48px 16px;
+  }
+  .container {
+    gap: 32px;
+  }
+  .title {
+    font-size: 32px;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .card {
+    max-width: 300px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .name {
+    font-size: 18px;
+  }
+  .role {
+    font-size: 14px;
+  }
+  .description {
+    font-size: 12px;
+  }
+  .info {
+    padding: 20px 16px;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .subtitle,
+  .card,
+  .image {
+    transition: none;
+  }
+  .card:hover {
+    transform: none;
+  }
+  .card:hover .image {
+    transform: none;
+  }
+}

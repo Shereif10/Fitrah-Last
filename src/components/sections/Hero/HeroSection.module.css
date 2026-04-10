@@ -1,0 +1,113 @@
+/* HeroSection.module.css - مع التعديل المطلوب */
+
+.fadeUp {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 
+    opacity 0.8s cubic-bezier(0.22,1,0.36,1),
+    transform 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes floatImage {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.float {
+  animation: floatImage 5s ease-in-out infinite;
+}
+
+.cta {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.cta:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.cta:active {
+  transform: scale(0.97);
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(8px); }
+}
+.bounce {
+  animation: bounceArrow 1.5s ease-in-out infinite;
+  color: var(--color-cream);
+}
+
+.badgeNumber {
+  display: inline-block;
+  min-width: 90px;
+  text-align: center;
+}
+
+/* ========== إخفاء الصورة والـ Badge في جميع الشاشات أقل من 1200px ========== */
+/* هذا يجعل التصميم عمودياً (مثل الموبايل والتابليت) من 0 إلى 1200px */
+@media (max-width: 1199px) {
+  .desktopOnly {
+    display: none !important;
+  }
+  /* يمكن إضافة تعديلات إضافية للتباعد إذا لزم الأمر */
+  .rightColumn {
+    width: 100% !important;
+  }
+}
+
+/* ========== إظهار الصورة والـ Badge فقط في الشاشات العريضة (1200px فأكثر) ========== */
+@media (min-width: 1200px) {
+  .desktopOnly {
+    display: flex !important;
+  }
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+/* لابتوب عريض (1200px - 1440px) - يظهر فيه التصميم الأصلي (صورة + نص) */
+@media (min-width: 1200px) and (max-width: 1440px) {
+  /* التصميم الأصلي يظهر تلقائياً، لا حاجة لتغييرات */
+}
+
+/* Tablet (769px - 1024px) */
+@media (max-width: 1200px) and (min-width: 769px) {
+  .float {
+    animation: none;
+  }
+  .cta:hover {
+    transform: none;
+  }
+}
+
+/* Small (481px - 768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+  .float {
+    animation: none;
+  }
+  .cta:hover {
+    transform: none;
+  }
+}
+
+/* Mobile (0 - 480px) */
+@media (max-width: 480px) {
+  .float {
+    animation: none;
+  }
+  .cta:hover {
+    transform: none;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fadeUp, .float, .cta, .bounce {
+    animation: none;
+    transition: none;
+  }
+  .cta:hover {
+    transform: none;
+  }
+}

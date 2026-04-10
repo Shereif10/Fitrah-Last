@@ -1,10 +1,10 @@
-import CTASection from '@/components/sections/CTASection';
-import FAQSection from '@/components/sections/FAQSection';
-import Footer from '@/components/sections/Footer';
-import HeroSection from '@/components/sections/HeroSection'
-import IncludedSection from '@/components/sections/IncludedSection';
-import PricingSection from "@/components/sections/PricingSection";
-import React from 'react'
+import CTASection from "@/components/sections/CTA/CTASection";
+import FAQSection from "@/components/sections/FAQ/FAQSection";
+import Footer from "@/components/sections/Footer/Footer";
+import HeroSection from "@/components/sections/Hero/HeroSection";
+import IncludedSection from "@/components/sections/Included/IncludedSection";
+import PricingSection from "@/components/sections/Pricing/PricingSection";
+import React from "react";
 
 export default function PricingPage() {
   return (
@@ -20,7 +20,7 @@ group dynamics or personal mentorship, we have a path for you."
       <IncludedSection />
       <FAQSection />
       <CTASection />
-      <Footer/>
+      <Footer />
     </>
   );
 }

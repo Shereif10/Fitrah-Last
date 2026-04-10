@@ -1,0 +1,289 @@
+/* ContactSection.module.css – Final version with proper responsive and left column centered */
+
+/* ========== SECTION & CONTAINER ========== */
+.section {
+  position: relative;
+  width: 100%;
+  background-color: #034845;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0 0 32px 32px;
+  margin-bottom: 96px;
+  min-height: 100vh;
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 64px 24px;
+  min-height: calc(100vh - 100px);
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1025px) {
+  .main {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.container {
+  max-width: 1192px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+/* Large screens (≥1025px) – two columns with left column vertically centered */
+@media (min-width: 1025px) {
+  .container {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+  }
+}
+
+/* ========== LEFT COLUMN (desktop only) ========== */
+.leftColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.showLeft {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (min-width: 1025px) {
+  .leftColumn {
+    align-self: center;
+    max-width: 400px;
+  }
+}
+@media (max-width: 1024px) {
+  .leftColumn {
+    display: none;
+  }
+}
+
+/* ========== MOBILE HEADER (only visible on tablet/mobile) ========== */
+.mobileHeader {
+  text-align: center;
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.showMobileHeader {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (min-width: 1025px) {
+  .mobileHeader {
+    display: none;
+  }
+}
+
+/* ========== FORM CARD ========== */
+.formCard {
+  width: 100%;
+  background-color: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateX(50px) scale(0.97);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.showRight {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+@media (min-width: 1025px) {
+  .formCard {
+    flex: 1;
+    max-width: 670px;
+  }
+}
+@media (max-width: 1024px) {
+  .formCard {
+    max-width: 600px;
+  }
+}
+@media (max-width: 768px) {
+  .formCard {
+    padding: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .formCard {
+    padding: 20px;
+  }
+}
+
+/* ========== FORM ELEMENTS ========== */
+.rowTwoCols {
+  display: flex;
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .rowTwoCols {
+    flex-direction: column;
+  }
+}
+
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 64px 0;
+  text-align: center;
+}
+.successIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: #f0fdf4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.errorBanner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+/* ========== CONTACT ITEMS (DESKTOP) ========== */
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.itemShow {
+  opacity: 1;
+  transform: translateY(0);
+}
+.iconCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(238, 236, 230, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ========== MOBILE CONTACT (visible only on small screens) ========== */
+.mobileContact {
+  width: 100%;
+  display: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.showMobileContact {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 1024px) {
+  .mobileContact {
+    display: block;
+  }
+}
+.contactListMobile {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 24px 20px;
+}
+.contactItemMobile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ========== HEADINGS & TEXT ========== */
+.headline {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: #a29c7b;
+  margin-bottom: 16px;
+}
+.subheadline {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+@media (max-width: 768px) {
+  .headline {
+    font-size: 32px;
+  }
+  .subheadline {
+    font-size: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .headline {
+    font-size: 28px;
+  }
+}
+
+/* ========== REDUCE MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+  .leftColumn,
+  .formCard,
+  .mobileHeader,
+  .mobileContact,
+  .contactItem {
+    transition: none;
+  }
+}

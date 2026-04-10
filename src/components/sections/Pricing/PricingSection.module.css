@@ -1,0 +1,373 @@
+
+@keyframes slideOutLeft {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to   { opacity: 0; transform: translateX(-70px) scale(0.96); }
+}
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to   { opacity: 0; transform: translateX(70px) scale(0.96); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(70px) scale(0.96); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-70px) scale(0.96); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.slideOutLeft  { animation: slideOutLeft  280ms cubic-bezier(0.4,0,1,1)   forwards; }
+.slideOutRight { animation: slideOutRight 280ms cubic-bezier(0.4,0,1,1)   forwards; }
+.slideInRight  { animation: slideInRight  340ms cubic-bezier(0,0,0.2,1)   forwards; }
+.slideInLeft   { animation: slideInLeft   340ms cubic-bezier(0,0,0.2,1)   forwards; }
+
+/* ── Section ── */
+.section {
+  position: relative;
+  width: 100%;
+  background-color: #034845;
+  border-radius: 32px;
+  padding: 64px 0;
+  overflow: hidden;
+  margin: 64px 0;
+}
+.pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+/* ── Heading ── */
+.heading { text-align: center; }
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+}
+.subtitle {
+  font-size: 16px;
+  color: #e2e8f0;
+  margin-top: 8px;
+}
+
+/* ── Tabs ── */
+.tabs {
+  width: 100%;
+  height: auto;
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+  background: rgba(13, 35, 24, 0.1);
+  border: 3px solid #a29c7b;
+  border-radius: 16px 16px 40px 40px;
+}
+.tab {
+  flex: 1;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  background: rgba(162, 156, 123, 0.1);
+  color: #e2e8f0;
+  border: none;
+  font-size: 12px;
+}
+.tabActive {
+  background: #a29c7b;
+  color: #034845;
+}
+.tabFirst  { border-radius: 32px 6px 6px 32px; }
+.tabLast   { border-radius: 6px 32px 32px 6px; }
+.tab:not(.tabFirst):not(.tabLast) { border-radius: 6px; }
+
+/* ── Carousel ── */
+.carouselWrapper {
+  width: 100%;
+  overflow: hidden;
+}
+.carouselTrack {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ── Cards ── */
+.card {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+.card:hover { transform: translateY(-8px); }
+
+/* base: موبايل — بنخفي الـ side cards */
+.cardNormal {
+  display: none;
+}
+.cardFeatured {
+  width: min(300px, 85vw);
+  height: auto;
+  min-height: 440px;
+  padding: 80px 24px 60px;
+  background-image: url('/svg/pricing-frame-lg.svg');
+}
+
+/* ── Badge ── */
+.badge {
+  width: 82px;
+  height: 26px;
+  border-radius: 8px;
+  background: rgba(162, 156, 123, 0.1);
+  border: 1px solid rgba(162, 156, 123, 0.4);
+  font-size: 12px;
+  font-weight: 400;
+  color: #a29c7b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.cardTitle {
+  margin-top: 16px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #ffffff;
+}
+.cardNormal .cardTitle {
+  font-size: 20px;
+  line-height: 1.2;
+  margin-top: 8px;
+}
+.frequency {
+  font-size: 13px;
+  font-weight: 350;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+.cardNormal .frequency { font-size: 11px; }
+.features {
+  margin-top: 14px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+}
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #e2e8f0;
+  text-align: left;
+}
+.priceWrapper {
+  margin-top: 14px;
+  border: 1px solid #a29c7b;
+  border-radius: 12px;
+  padding: 6px 20px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.price {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #a29c7b;
+}
+.cardNormal .price { font-size: 20px; }
+.pricePeriod {
+  font-size: 12px;
+  font-weight: 700;
+  color: #a29c7b;
+}
+
+/* ── Navigation ── */
+.navigation {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.navButton:hover { opacity: 1; }
+.navIconPrev { transform: rotate(180deg); }
+.navIconNext { transform: rotate(0); }
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(162, 156, 123, 0.35);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  padding: 0;
+}
+.dotActive {
+  width: 20px;
+  background: #a29c7b;
+}
+
+/* ══════════════════════════════
+   BREAKPOINTS
+══════════════════════════════ */
+
+/* ── sm (640px) ── */
+@media (min-width: 640px) {
+  .section { padding: 72px 0; margin: 72px 0; border-radius: 40px; }
+  .container { gap: 36px; padding: 0 24px; }
+  .title { font-size: 38px; }
+  .subtitle { font-size: 17px; }
+  .tabs { padding: 14px; gap: 10px; }
+  .tab { height: 42px; font-size: 13px; }
+  .cardFeatured {
+    width: 320px;
+    min-height: 460px;
+    padding: 90px 28px 70px;
+  }
+  .cardTitle { font-size: 28px; }
+  .price { font-size: 28px; }
+}
+
+/* ── md (768px): side cards يظهروا ── */
+@media (min-width: 768px) {
+  .section { padding: 80px 0; margin: 80px 0; }
+  .container { gap: 40px; padding: 0 48px; }
+  .title { font-size: 40px; }
+  .subtitle { font-size: 18px; }
+  .tabs { padding: 16px; gap: 12px; height: 80px; }
+  .tab { height: 44px; font-size: 14px; }
+  .carouselTrack { gap: 16px; }
+
+  /* side cards تظهر */
+  .cardNormal {
+    display: flex;
+    width: 220px;
+    height: 360px;
+    padding: 72px 18px;
+    background-image: url('/svg/pricing-frame-sm.svg');
+  }
+  .cardFeatured {
+    width: 280px;
+    height: 440px;
+    padding: 96px 24px;
+    min-height: unset;
+  }
+  .cardNormal .cardTitle { font-size: 18px; margin-top: 6px; }
+  .cardNormal .frequency { font-size: 10px; }
+  .cardNormal .price { font-size: 18px; }
+  .cardTitle { font-size: 24px; }
+  .price { font-size: 24px; }
+  .featureItem { font-size: 7px; }
+}
+
+/* ── lg (1024px) ── */
+@media (min-width: 1024px) {
+  .section { padding: 96px 0; margin: 96px 0; border-radius: 48px; }
+  .container { gap: 48px; padding: 0 120px; }
+  .title { font-size: 44px; }
+  .tabs { height: 90px; padding: 20px; gap: 14px; }
+  .tab { height: 46px; font-size: 15px; }
+  .carouselTrack { gap: 20px; }
+
+  .cardNormal {
+    width: 250px;
+    height: 390px;
+    padding: 80px 22px;
+  }
+  .cardFeatured {
+    width: 310px;
+    height: 470px;
+    padding: 108px 28px;
+  }
+  .cardNormal .cardTitle { font-size: 20px; }
+  .cardNormal .price { font-size: 20px; }
+  .cardTitle { font-size: 26px; }
+  .price { font-size: 28px; }
+  .featureItem { font-size: 7.5px; }
+}
+
+/* ── xl (1280px) — الديزاين الأصلي تقريباً ── */
+@media (min-width: 1280px) {
+  .title { font-size: 48px; }
+  .subtitle { font-size: 22px; }
+  .tabs { height: 97px; padding: 24px; gap: 16px; }
+  .tab { height: 49px; font-size: 16px; }
+  .carouselTrack { gap: 24px; }
+
+  .cardNormal {
+    width: 280px;
+    height: 420px;
+    padding: 96px 29px;
+  }
+  .cardFeatured {
+    width: 340px;
+    height: 500px;
+    padding: 120px 35px;
+  }
+  .cardNormal .cardTitle { font-size: 24px; margin-top: 8px; }
+  .cardNormal .frequency { font-size: 12px; }
+  .cardNormal .price { font-size: 24px; }
+  .cardTitle { font-size: 32px; margin-top: 16px; }
+  .price { font-size: 32px; }
+  .featureItem { font-size: 8px; }
+}
+
+/* ── 2xl (1536px) — الديزاين الأصلي ── */
+@media (min-width: 1536px) {
+  .container { max-width: 1440px; }
+  .carouselTrack { gap: 32px; }
+  .dot { width: 6px; height: 6px; }
+  .dotActive { width: 24px; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .slideOutLeft, .slideOutRight, .slideInRight, .slideInLeft,
+  .card, .tab, .navButton, .dot {
+    animation: none;
+    transition: none;
+  }
+  .card:hover { transform: none; }
+}

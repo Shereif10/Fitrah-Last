@@ -1,0 +1,134 @@
+/* FAQSection.module.css */
+
+/* Same as original exactly, only added accessibility + responsive */
+
+.item {
+  background: var(--color-primary, #034845);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.active {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Header - exactly as original */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  color: white;
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Chevron - exactly as original */
+.chevron {
+  width: 20px;
+  transition: transform 0.3s ease;
+  stroke: white;
+  stroke-width: 2;
+  fill: none;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* Answer - exactly as original */
+.answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+}
+
+.answerInner {
+  padding: 0 32px 20px 32px;
+  color: #ddd;
+}
+
+.open {
+  max-height: 200px;
+  opacity: 1;
+}
+
+/* ALT VARIANT - exactly as original */
+.altItem {
+  background: #f5f5f5;
+}
+
+.altHeader {
+  color: #333f3e;
+}
+
+.altChevron {
+  stroke: #333f3e;
+}
+
+.altAnswer {
+  color: #555;
+}
+
+/* ========== RESPONSIVE (only below laptop) ========== */
+
+/* Tablet (769px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .header {
+    padding: 18px 28px;
+  }
+  .answerInner {
+    padding: 0 28px 18px 28px;
+  }
+}
+
+/* Small (481px - 768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+  .header {
+    padding: 16px 24px;
+  }
+  .answerInner {
+    padding: 0 24px 16px 24px;
+  }
+  .chevron {
+    width: 18px;
+  }
+}
+
+/* Mobile (0 - 480px) */
+@media (max-width: 480px) {
+  .header {
+    padding: 14px 20px;
+  }
+  .answerInner {
+    padding: 0 20px 14px 20px;
+    font-size: 14px;
+  }
+  .chevron {
+    width: 16px;
+  }
+  .open {
+    max-height: 250px;
+  }
+}
+
+/* Large screens (1441px+) - optional, keep same as laptop */
+@media (min-width: 1441px) {
+  /* No changes, container max-width already 1280px */
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .answer,
+  .chevron {
+    transition: none;
+  }
+}

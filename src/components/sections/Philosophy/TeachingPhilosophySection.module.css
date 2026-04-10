@@ -1,0 +1,302 @@
+/* TeachingPhilosophySection.module.css - النسخة النهائية الكاملة */
+
+.section {
+  position: relative;
+  width: 100%;
+  background-color: #034845;
+  border-radius: 48px;
+  padding: 64px 24px;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .section {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1025px) {
+  .section {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 1192px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.subtitle {
+  font-size: 18px;
+  color: #e2e8f0;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.textShow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.card {
+  opacity: 0;
+  transform: translateX(60px) scale(0.97);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  height: 100%;
+  display: flex;
+}
+.showLeft {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+.showRight {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.cardInner {
+  width: 100%;
+  background-color: rgba(13, 35, 24, 0.1);
+  border: 3px solid #a29c7b;
+  border-radius: 16px 16px 48px 48px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card:hover .cardInner {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+.cardTitle {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cardDescription {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.cardDescription p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #ffffff;
+  margin: 0;
+}
+
+.cardTag {
+  display: flex;
+  justify-content: center;
+}
+.tag {
+  display: inline-block;
+  background: rgba(162, 156, 123, 0.1);
+  border-radius: 8px;
+  padding: 4px 16px;
+  font-size: 12px;
+  color: #e2e8f0;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.tagShow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Laptop (1025px - 1440px) — locked */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .grid {
+    gap: 32px;
+  }
+  .cardTitle {
+    font-size: 32px;
+  }
+}
+
+/* Large screens (1441px+) */
+@media (min-width: 1441px) {
+  .grid {
+    gap: 40px;
+  }
+}
+
+/* Tablet (769px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .grid {
+    gap: 24px;
+  }
+  .cardInner {
+    padding: 20px;
+    gap: 12px;
+  }
+  .cardHeader {
+    gap: 8px;
+  }
+  .cardTitle {
+    font-size: 26px;
+    white-space: nowrap;
+  }
+  .cardHeader img {
+    width: 40px;
+    height: 40px;
+  }
+  .cardDescription p {
+    font-size: 13px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 4px 12px;
+    white-space: normal;
+  }
+}
+
+/* Small (481px - 768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .cardInner {
+    padding: 20px;
+  }
+  .cardHeader {
+    gap: 8px;
+  }
+  .cardTitle {
+    font-size: 22px;
+    white-space: nowrap;
+  }
+  .cardHeader img {
+    width: 36px;
+    height: 36px;
+  }
+  .cardDescription p {
+    font-size: 14px;
+  }
+  .tag {
+    font-size: 11px;
+    white-space: normal;
+    padding: 4px 12px;
+  }
+}
+
+/* Mobile (0 - 480px) */
+@media (max-width: 480px) {
+  .section {
+    padding: 48px 16px;
+    border-radius: 32px;
+  }
+  .container {
+    gap: 32px;
+  }
+  .title {
+    font-size: 36px;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .cardInner {
+    padding: 16px;
+  }
+  .cardHeader {
+    gap: 6px;
+  }
+  .cardTitle {
+    font-size: 18px;
+    white-space: nowrap;
+  }
+  .cardHeader img {
+    width: 32px;
+    height: 32px;
+  }
+  .cardDescription p {
+    font-size: 13px;
+  }
+  .tag {
+    font-size: 10px;
+    white-space: normal;
+    padding: 4px 8px;
+  }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .subtitle,
+  .card,
+  .tag {
+    transition: none;
+  }
+  .card:hover .cardInner {
+    transform: none;
+  }
+}

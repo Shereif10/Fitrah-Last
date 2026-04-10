@@ -1,0 +1,231 @@
+/* FeaturesSection.module.css */
+
+.section {
+  width: 100%;
+  background-color: #f5f2e8; /* cream */
+  padding: 96px 24px;
+}
+@media (min-width: 768px) {
+  .section {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1025px) {
+  .section {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.container {
+  max-width: 1192px;
+  margin: 0 auto;
+}
+
+/* Double border layout */
+.outerBorder {
+  border: 1px solid #a29c7b; /* gold */
+  border-radius: 24px;
+  padding: 16px;
+}
+.innerBorder {
+  border: 1px solid #a29c7b;
+  border-radius: 20px;
+  padding: 24px;
+}
+
+/* Grid – 3 columns on laptop, responsive */
+.grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+@media (min-width: 1025px) {
+  .grid {
+    flex-wrap: nowrap;
+  }
+}
+
+.card {
+  flex: 1;
+  background-color: rgba(162, 156, 123, 0.1); /* #A29C7B1A */
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.25s ease,
+              background 0.25s ease;
+  will-change: transform, opacity;
+}
+.card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  background-color: rgba(162, 156, 123, 0.18);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  transform: scale(0.9);
+  transition: transform 0.5s ease;
+  width: 40px;
+  height: 40px;
+}
+.card.show .icon {
+  transform: scale(1);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e2f2e; /* neutral-500 */
+  margin: 0;
+}
+.description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #5a6e6b; /* neutral-400 */
+  max-width: 260px;
+  margin: 0;
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* Laptop (1025px - 1440px) — locked, no changes (already default) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .grid {
+    gap: 24px;
+  }
+  .card {
+    padding: 24px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .description {
+    font-size: 14px;
+  }
+}
+
+/* Large screens (1441px+) — optional larger gap */
+@media (min-width: 1441px) {
+  .grid {
+    gap: 32px;
+  }
+  .container {
+    max-width: 1440px;
+  }
+  .card {
+    padding: 28px;
+  }
+}
+
+/* Tablet (769px - 1024px) — wrap cards, adjust spacing */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .grid {
+    gap: 20px;
+  }
+  .card {
+    flex-basis: calc(33.333% - 14px);
+    min-width: 200px;
+    padding: 20px;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .description {
+    font-size: 13px;
+    max-width: 100%;
+  }
+  .innerBorder {
+    padding: 20px;
+  }
+  .outerBorder {
+    padding: 12px;
+  }
+}
+
+/* Small (481px - 768px) — stack vertically, 1 column */
+@media (max-width: 768px) and (min-width: 481px) {
+  .grid {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .card {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .description {
+    font-size: 14px;
+    max-width: 100%;
+  }
+  .innerBorder {
+    padding: 16px;
+  }
+  .outerBorder {
+    padding: 10px;
+  }
+  .section {
+    padding: 64px 24px;
+  }
+}
+
+/* Mobile (0 - 480px) */
+@media (max-width: 480px) {
+  .section {
+    padding: 48px 16px;
+  }
+  .outerBorder {
+    padding: 8px;
+    border-radius: 20px;
+  }
+  .innerBorder {
+    padding: 12px;
+    border-radius: 16px;
+  }
+  .grid {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card {
+    padding: 16px;
+    gap: 12px;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .description {
+    font-size: 13px;
+  }
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .icon {
+    transition: none;
+  }
+  .card:hover {
+    transform: none;
+  }
+}
