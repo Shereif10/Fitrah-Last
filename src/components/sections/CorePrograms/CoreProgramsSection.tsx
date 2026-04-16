@@ -10,7 +10,6 @@ type Program = {
   title: string;
   tags: string[];
   features: string[];
-  price: string;
 };
 
 const PROGRAMS: Program[] = [
@@ -24,7 +23,6 @@ const PROGRAMS: Program[] = [
       "Correct Arabic pronunciation",
       "Fluency building with certified tutors",
     ],
-    price: "$45/mo",
   },
   {
     image: "/images/quran-memorization.jpg",
@@ -36,7 +34,6 @@ const PROGRAMS: Program[] = [
       "Regular revision & milestone tracking",
       "Sanad certified instructors",
     ],
-    price: "$60/mo",
   },
   {
     image: "/images/arabic-language.jpg",
@@ -48,7 +45,6 @@ const PROGRAMS: Program[] = [
       "Reading, writing, and conversation",
       "Interactive vocabulary games",
     ],
-    price: "$50/mo",
   },
   {
     image: "/images/islamic-studies.jpg",
@@ -60,7 +56,29 @@ const PROGRAMS: Program[] = [
       "Tailored for Western contexts",
       "Character building & morals",
     ],
-    price: "$40/mo",
+  },
+  {
+    image: "/images/mental-math.jpg",
+    badge: "Beginner",
+    title: "Mental Math",
+    tags: ["Ages 5–14", "flexible sessions"],
+    features: [
+      "Perform calculations quickly without a calculator",
+      "Enhance focus, thinking, and memory skills",
+      "Boost confidence with noticeable progress in a short time",
+    ],
+  },
+  {
+    image: "/images/educational-support.jpg",
+    badge: "Beginner",
+    title: "Educational Support",
+    tags: ["All Ages", "Flexible Sessions"],
+    features: [
+      "Personalized plans for learning difficulties",
+      "Simplified explanations and interactive exercises",
+      "Improve understanding, focus, and skill development",
+      "Build self-confidence step by step",
+    ],
   },
 ];
 
@@ -134,7 +152,6 @@ function ProgramCard({
   title,
   tags,
   features,
-  price,
   visible,
   delay,
 }: Program & { visible: boolean; delay: number }) {
@@ -171,7 +188,6 @@ function ProgramCard({
             </li>
           ))}
         </ul>
-        <div className={styles.price}>{price}</div>
       </div>
     </div>
   );

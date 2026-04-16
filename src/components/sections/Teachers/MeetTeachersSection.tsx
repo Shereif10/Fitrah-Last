@@ -7,25 +7,25 @@ import styles from "./MeetTeachersSection.module.css";
 const TEACHERS = [
   {
     image: "/images/teacher-yassmin.jpg",
-    name: "Ustadha Yassmin",
+    name: "Shrouq Elsayed",
     role: "Quran teacher",
     desc: "Helping students master Quran recitation with confidence.",
   },
   {
     image: "/images/teacher-sumaya.jpg",
-    name: "Sumaya Muhammad",
+    name: "Somia Mohammed",
     role: "Quran teacher",
     desc: "Making Arabic simple, engaging, and easy to understand.",
   },
   {
     image: "/images/teacher-hisham.jpg",
-    name: "Hisham Sayed",
+    name: "Hesham Sayed",
     role: "Quran teacher",
     desc: "Guiding students with essential Islamic knowledge and values.",
   },
   {
     image: "/images/teacher-shrouq.jpg",
-    name: "Shrouq Elsayed",
+    name: "Ustadha Yasmen",
     role: "Human resources",
     desc: "Ensuring a smooth and supportive learning journey.",
   },

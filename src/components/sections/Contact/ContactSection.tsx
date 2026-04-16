@@ -38,25 +38,41 @@ const INPUT_CLASS =
   "w-full h-[44px] px-4 bg-[#f5f5f5] border rounded-[8px] text-[14px] text-neutral-500 outline-none transition-all shadow-[0px_4px_6px_-4px_rgba(6,78,59,0.1),0px_10px_15px_-3px_rgba(6,78,59,0.1)] focus:shadow-[0px_6px_10px_-4px_rgba(6,78,59,0.15),0px_15px_25px_-3px_rgba(6,78,59,0.15)] focus:-translate-y-[1px] disabled:opacity-50 disabled:cursor-not-allowed";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
+interface ChildData {
+  name: string;
+  age: string;
+}
+
 interface FormState {
   parentName: string;
   email: string;
   phone: string;
   childNumber: string;
   country: string;
-  childAges: string[];
+  childrenData: ChildData[];
   interest: string;
   extra: string;
 }
 
 type FormErrors = Partial<
-  Record<keyof FormState | `childAge_${number}`, string>
+  Record<
+    | keyof Omit<FormState, "childrenData">
+    | `childAge_${number}`
+    | `childName_${number}`,
+    string
+  >
 >;
 type TouchedFields = Partial<
-  Record<keyof FormState | `childAge_${number}`, boolean>
+  Record<
+    | keyof Omit<FormState, "childrenData">
+    | `childAge_${number}`
+    | `childName_${number}`,
+    boolean
+  >
 >;
 
 type ChildAgeKey = `childAge_${number}`;
+type ChildNameKey = `childName_${number}`;
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -84,7 +100,12 @@ function validate(form: FormState): FormErrors {
 
   const count = form.childNumber === "4+" ? 4 : parseInt(form.childNumber) || 0;
   for (let i = 0; i < count; i++) {
-    if (!form.childAges[i])
+    if (!form.childrenData[i]?.name?.trim())
+      errors[`childName_${i}`] =
+        count === 1
+          ? "Please enter your child's name."
+          : `Please enter Child ${i + 1}'s name.`;
+    if (!form.childrenData[i]?.age)
       errors[`childAge_${i}`] =
         count === 1
           ? "Please select your child's age."
@@ -167,7 +188,7 @@ const EMPTY_FORM: FormState = {
   phone: "",
   childNumber: "",
   country: "",
-  childAges: [],
+  childrenData: [],
   interest: "",
   extra: "",
 };
@@ -198,7 +219,10 @@ export default function ContactSection() {
     setErrors(validate({ ...form }));
   };
 
-  const handleChange = (field: keyof FormState, value: string) => {
+  const handleChange = (
+    field: keyof Omit<FormState, "childrenData">,
+    value: string,
+  ) => {
     const updated = { ...form, [field]: value };
     setForm(updated);
     if (touched[field as keyof TouchedFields]) setErrors(validate(updated));
@@ -209,26 +233,36 @@ export default function ContactSection() {
     const updated: FormState = {
       ...form,
       childNumber: value,
-      childAges: Array(count).fill(""),
+      childrenData: Array(count)
+        .fill({ name: "", age: "" })
+        .map(() => ({ name: "", age: "" })),
     };
     setForm(updated);
     setTouched((prev) => {
       const next: TouchedFields = { ...prev, childNumber: true };
       for (let i = 0; i < 4; i++) {
-        const key = `childAge_${i}` as ChildAgeKey;
-        delete next[key];
+        const ageKey = `childAge_${i}` as ChildAgeKey;
+        const nameKey = `childName_${i}` as ChildNameKey;
+        delete next[ageKey];
+        delete next[nameKey];
       }
       return next;
     });
     setErrors(validate(updated));
   };
 
-  const handleAgeChange = (index: number, value: string) => {
-    const newAges = [...form.childAges];
-    newAges[index] = value;
-    const updated = { ...form, childAges: newAges };
+  const handleChildDataChange = (
+    index: number,
+    field: "name" | "age",
+    value: string,
+  ) => {
+    const newChildrenData = form.childrenData.map((child, i) =>
+      i === index ? { ...child, [field]: value } : child,
+    );
+    const updated = { ...form, childrenData: newChildrenData };
     setForm(updated);
-    if (touched[`childAge_${index}`]) setErrors(validate(updated));
+    const key = field === "name" ? `childName_${index}` : `childAge_${index}`;
+    if (touched[key as keyof TouchedFields]) setErrors(validate(updated));
   };
 
   const handleSubmit = async () => {
@@ -243,7 +277,10 @@ export default function ContactSection() {
       interest: true,
       extra: true,
     };
-    for (let i = 0; i < count; i++) allTouched[`childAge_${i}`] = true;
+    for (let i = 0; i < count; i++) {
+      allTouched[`childAge_${i}`] = true;
+      allTouched[`childName_${i}`] = true;
+    }
     setTouched(allTouched);
     const currentErrors = validate(form);
     setErrors(currentErrors);
@@ -251,6 +288,9 @@ export default function ContactSection() {
 
     setStatus("loading");
     try {
+      const childrenAges = form.childrenData.map((c) => c.age).join(", ");
+      const childrenNames = form.childrenData.map((c) => c.name).join(", ");
+
       await emailjs.send(
         "service_8mjn84l",
         "template_o9t1ozq",
@@ -260,12 +300,30 @@ export default function ContactSection() {
           phone: form.phone,
           country: form.country,
           children_count: form.childNumber,
-          children_ages: form.childAges.join(", "),
+          children_ages: childrenAges,
+          children_names: childrenNames,
           interest: form.interest,
           extra: form.extra,
         },
         "WlOjXCVIp_HMjq_HV",
       );
+
+      // Telegram notification 
+      fetch("/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          parentName: form.parentName,
+          email: form.email,
+          phone: form.phone,
+          country: form.country,
+          childNumber: form.childNumber,
+          childrenData: form.childrenData,
+          interest: form.interest,
+          extra: form.extra,
+        }),
+      }).catch(() => {});
+
       setStatus("success");
     } catch {
       setStatus("error");
@@ -275,8 +333,8 @@ export default function ContactSection() {
   const isLoading = status === "loading";
   const numChildren =
     form.childNumber === "4+" ? 4 : parseInt(form.childNumber) || 0;
-  const ageLabel = (i: number) =>
-    numChildren === 1 ? "Child's Age" : `Child ${i + 1}'s Age`;
+  const childLabel = (i: number) =>
+    numChildren === 1 ? "Child" : `Child ${i + 1}`;
 
   return (
     <section className={styles.section}>
@@ -518,91 +576,83 @@ export default function ContactSection() {
                       </select>
                     </Field>
 
-                    <div className={styles.rowTwoCols}>
-                      <Field
-                        label="Country"
-                        error={touched.country ? errors.country : undefined}
+                    <Field
+                      label="Country"
+                      error={touched.country ? errors.country : undefined}
+                      id="country"
+                    >
+                      <select
                         id="country"
+                        disabled={isLoading}
+                        value={form.country}
+                        onChange={(e) =>
+                          handleChange("country", e.target.value)
+                        }
+                        onBlur={() => touch("country")}
+                        className={`${SELECT_CLASS} ${fieldBorder("country", errors, touched)}`}
                       >
-                        <select
-                          id="country"
-                          disabled={isLoading}
-                          value={form.country}
-                          onChange={(e) =>
-                            handleChange("country", e.target.value)
-                          }
-                          onBlur={() => touch("country")}
-                          className={`${SELECT_CLASS} ${fieldBorder("country", errors, touched)}`}
-                        >
-                          <option value="">Select country...</option>
-                          <option value="uk">United Kingdom</option>
-                          <option value="us">United States</option>
-                          <option value="ca">Canada</option>
-                          <option value="au">Australia</option>
-                          <option value="other">Other</option>
-                        </select>
-                      </Field>
+                        <option value="">Select country...</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="us">United States</option>
+                        <option value="ca">Canada</option>
+                        <option value="au">Australia</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </Field>
 
-                      {numChildren >= 1 && (
-                        <Field
-                          label={ageLabel(0)}
-                          error={
-                            touched[`childAge_0`]
-                              ? errors[`childAge_0`]
-                              : undefined
-                          }
-                          id="childAge0"
-                        >
-                          <select
-                            id="childAge0"
-                            disabled={isLoading}
-                            value={form.childAges[0] ?? ""}
-                            onChange={(e) => handleAgeChange(0, e.target.value)}
-                            onBlur={() => touch(`childAge_0`)}
-                            className={`${SELECT_CLASS} ${fieldBorder(`childAge_0`, errors, touched)}`}
+                    {/* Children name + age rows */}
+                    {numChildren >= 1 &&
+                      Array.from({ length: numChildren }, (_, i) => (
+                        <div key={i} className={styles.rowTwoCols}>
+                          <Field
+                            label={`${childLabel(i)}'s Name`}
+                            error={
+                              touched[`childName_${i}`]
+                                ? errors[`childName_${i}`]
+                                : undefined
+                            }
+                            id={`childName${i}`}
                           >
-                            <option value="">Select age...</option>
-                            {AGE_OPTIONS.map((age) => (
-                              <option key={age} value={age}>
-                                {age}
-                              </option>
-                            ))}
-                          </select>
-                        </Field>
-                      )}
-                    </div>
-
-                    {numChildren >= 2 &&
-                      Array.from(
-                        { length: numChildren - 1 },
-                        (_, i) => i + 1,
-                      ).map((i) => (
-                        <Field
-                          key={i}
-                          label={ageLabel(i)}
-                          error={
-                            touched[`childAge_${i}`]
-                              ? errors[`childAge_${i}`]
-                              : undefined
-                          }
-                          id={`childAge${i}`}
-                        >
-                          <select
+                            <input
+                              id={`childName${i}`}
+                              disabled={isLoading}
+                              value={form.childrenData[i]?.name ?? ""}
+                              onChange={(e) =>
+                                handleChildDataChange(i, "name", e.target.value)
+                              }
+                              onBlur={() => touch(`childName_${i}`)}
+                              placeholder="Child's first name"
+                              className={`${INPUT_CLASS} ${fieldBorder(`childName_${i}`, errors, touched)}`}
+                            />
+                          </Field>
+                          <Field
+                            label={`${childLabel(i)}'s Age`}
+                            error={
+                              touched[`childAge_${i}`]
+                                ? errors[`childAge_${i}`]
+                                : undefined
+                            }
                             id={`childAge${i}`}
-                            disabled={isLoading}
-                            value={form.childAges[i] ?? ""}
-                            onChange={(e) => handleAgeChange(i, e.target.value)}
-                            onBlur={() => touch(`childAge_${i}`)}
-                            className={`${SELECT_CLASS} ${fieldBorder(`childAge_${i}`, errors, touched)}`}
                           >
-                            <option value="">Select age...</option>
-                            {AGE_OPTIONS.map((age) => (
-                              <option key={age} value={age}>
-                                {age}
-                              </option>
-                            ))}
-                          </select>
-                        </Field>
+                            <select
+                              id={`childAge${i}`}
+                              disabled={isLoading}
+                              value={form.childrenData[i]?.age ?? ""}
+                              onChange={(e) =>
+                                handleChildDataChange(i, "age", e.target.value)
+                              }
+                              onBlur={() => touch(`childAge_${i}`)}
+                              className={`${SELECT_CLASS} ${fieldBorder(`childAge_${i}`, errors, touched)}`}
+                            >
+                              <option value="">Select age...</option>
+                              {AGE_OPTIONS.map((age) => (
+                                <option key={age} value={age}>
+                                  {age}
+                                </option>
+                              ))}
+                            </select>
+                          </Field>
+                        </div>
                       ))}
 
                     <Field
@@ -627,6 +677,8 @@ export default function ContactSection() {
                         <option value="hifz">Quran Memorization</option>
                         <option value="arabic">Arabic Language</option>
                         <option value="islamic">Islamic Studies</option>
+                        <option value="mental">Mental Math</option>
+                        <option value="educational">Educational Support</option>
                         <option value="all">All Programs</option>
                       </select>
                     </Field>
@@ -648,20 +700,22 @@ export default function ContactSection() {
                     </Field>
                   </div>
 
-                  <button
-                    onClick={handleSubmit}
-                    disabled={isLoading}
-                    className="w-full h-[52px] bg-[#f5f5f5] rounded-[12px] text-[16px] font-bold text-primary flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0px_4px_6px_-4px_rgba(6,78,59,0.1),0px_10px_15px_-3px_rgba(6,78,59,0.1)] hover:shadow-[0px_6px_10px_-4px_rgba(6,78,59,0.15),0px_15px_25px_-3px_rgba(6,78,59,0.15)] hover:-translate-y-[2px] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0"
-                  >
-                    {isLoading ? (
-                      <>
-                        <Spinner />
-                        <span>Sending...</span>
-                      </>
-                    ) : (
-                      "Get Your Free Info Pack →"
-                    )}
-                  </button>
+                  <div className="mt-4">
+                    <button
+                      onClick={handleSubmit}
+                      disabled={isLoading}
+                      className="w-full h-[52px] bg-[#f5f5f5] rounded-[12px] text-[16px] font-bold text-primary flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0px_4px_6px_-4px_rgba(6,78,59,0.1),0px_10px_15px_-3px_rgba(6,78,59,0.1)] hover:shadow-[0px_6px_10px_-4px_rgba(6,78,59,0.15),0px_15px_25px_-3px_rgba(6,78,59,0.15)] hover:-translate-y-[2px] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0"
+                    >
+                      {isLoading ? (
+                        <>
+                          <Spinner />
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        "Get Your Free Info Pack →"
+                      )}
+                    </button>
+                  </div>
                 </>
               )}
             </div>
@@ -671,7 +725,7 @@ export default function ContactSection() {
               className={`${styles.mobileContact} ${show ? styles.showMobileContact : ""}`}
             >
               <div className={styles.contactListMobile}>
-                {CONTACT_ITEMS.map((item, index) => (
+                {CONTACT_ITEMS.map((item) => (
                   <div key={item.label} className={styles.contactItemMobile}>
                     <div className={styles.iconCircle}>
                       <Image
