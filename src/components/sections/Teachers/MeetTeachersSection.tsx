@@ -25,7 +25,7 @@ const TEACHERS = [
   },
   {
     image: "/images/teacher-shrouq.jpg",
-    name: "Ustadha Yasmen",
+    name: "Yasmen Hejazy",
     role: "Human resources",
     desc: "Ensuring a smooth and supportive learning journey.",
   },

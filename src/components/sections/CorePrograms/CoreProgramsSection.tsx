@@ -150,7 +150,7 @@ function ProgramCard({
   image,
   badge,
   title,
-  tags,
+  // tags,
   features,
   visible,
   delay,
@@ -173,13 +173,13 @@ function ProgramCard({
       </div>
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <div className={styles.tags}>
+        {/* <div className={styles.tags}>
           {tags.map((tag) => (
             <span key={tag} className={styles.tag}>
               {tag}
             </span>
           ))}
-        </div>
+        </div> */}
         <ul className={styles.features}>
           {features.map((feature) => (
             <li key={feature}>
